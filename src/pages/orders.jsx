@@ -2,7 +2,7 @@ import { Button, Table } from "reactstrap";
 
 import { AppCard } from "../components/AppCard";
 import { Link } from "react-router-dom";
-import { uniqueId } from "lodash";
+import uniqueId from "lodash/uniqueId";
 import { useData } from "../hooks/useData";
 import { useState } from "react";
 

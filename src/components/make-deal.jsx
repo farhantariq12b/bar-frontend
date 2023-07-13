@@ -3,7 +3,7 @@ import { Button, Col, Form, FormGroup, Input, Label } from "reactstrap";
 import { AppCard } from "./AppCard";
 import { api } from "../services/api";
 import { toast } from "react-hot-toast";
-import { uniqueId } from "lodash";
+import uniqueId from "lodash/uniqueId";
 import { useData } from "../hooks/useData";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

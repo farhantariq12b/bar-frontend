@@ -1,5 +1,5 @@
 import { Table } from "reactstrap";
-import { uniqueId } from "lodash";
+import uniqueId from "lodash/uniqueId";
 
 export const Cart = ({ items, onRemove, products }) => {
   return (

@@ -2,11 +2,11 @@ import { Button, Table } from "reactstrap";
 
 import { AppCard } from "../components/AppCard";
 import { Link } from "react-router-dom";
-import { uniqueId } from "lodash";
+import uniqueId from "lodash/uniqueId";
 import { useData } from "../hooks/useData";
 
 export const Deals = () => {
-  const { data, loading } = useData("/v1/deals", "deals");
+  const { data, loading, onDelete } = useData("/v1/deals", "deals");
   return (
     <AppCard title="Products">
       <div style={{ float: "right" }}>
@@ -25,6 +25,7 @@ export const Deals = () => {
             <th>Discount</th>
             <th>Discount Type</th>
             <th>Discount Cap</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -36,11 +37,18 @@ export const Deals = () => {
             data?.map((item) => (
               <tr key={uniqueId()}>
                 <td>{item._id}</td>
-                <td>{item.item.name}</td>
-                <td>{item.addon.name}</td>
+                <td>{item?.item?.name ?? "Deleted"}</td>
+                <td>{item?.addon?.name ?? "Deleted"}</td>
                 <td>{item.discount}</td>
                 <td>{item.discount_type}</td>
                 <td>{item.max_discount_cap}</td>
+                <td>
+                  <div>
+                    <Link to="/" data-id={item._id} onClick={onDelete}>
+                      Delete
+                    </Link>
+                  </div>
+                </td>
               </tr>
             ))
           )}
