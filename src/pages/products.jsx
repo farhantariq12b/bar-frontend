@@ -44,9 +44,6 @@ export const Products = () => {
                 <td>{item.max_discount_cap}</td>
                 <td>
                   <div>
-                    <Link to="/" style={{ marginRight: "0.5rem" }}>
-                      Edit
-                    </Link>
                     <Link to="/" data-id={item._id} onClick={onDelete}>
                       Delete
                     </Link>

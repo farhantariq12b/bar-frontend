@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { AppCard } from "./AppCard";
 import { Cart } from "./cart";
 import { api } from "../services/api";
+import { getUserIdFromLocalStorage } from "../helpers/localStorage";
 import { toast } from "react-hot-toast";
 import uniqueId from "lodash/uniqueId";
 import { useData } from "../hooks/useData";
@@ -13,7 +14,7 @@ export const MakeOrder = () => {
   const { data } = useData("/v1/products?all=true", "products");
   const [selected, setSelected] = useState("");
   const [values, setValues] = useState({
-    user_id: localStorage.getItem("user_id"),
+    user_id: getUserIdFromLocalStorage(),
     items: [],
   });
   const navigate = useNavigate();
@@ -46,6 +47,9 @@ export const MakeOrder = () => {
   };
 
   const onOrder = async () => {
+    if (!values.items.length) {
+      return;
+    }
     await api.post("/v1/orders", values);
     toast.success("Order has been created");
     navigate("/orders");
@@ -81,7 +85,11 @@ export const MakeOrder = () => {
         <Cart items={values.items} onRemove={onRemoveItem} products={data} />
       </div>
       <div>
-        <Button color="success" onClick={onOrder}>
+        <Button
+          color="success"
+          onClick={onOrder}
+          disabled={!values.items.length}
+        >
           Make Order
         </Button>
       </div>

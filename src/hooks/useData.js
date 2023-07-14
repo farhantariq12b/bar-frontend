@@ -58,6 +58,7 @@ export const useData = (url, dataSelector) => {
      * @param {React.MouseEvent<HTMLAnchorElement>} e
      */
     const onDelete = async (e) => {
+        e?.preventDefault();
         const { id } = e.currentTarget.dataset
         if (!id) return
         const confirm = window.confirm("Are you sure you want to delete it?")

@@ -1,6 +1,11 @@
 import "./App.css";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  getUserIdFromLocalStorage,
+  setUserIdInLocalStorage,
+} from "./helpers/localStorage";
+import { useEffect, useState } from "react";
 
 import AppNavBar from "./layout/navbar";
 import { Container } from "reactstrap";
@@ -8,29 +13,21 @@ import { CreateProduct } from "./components/create-product";
 import { Deals } from "./pages/deals";
 import { MakeADeal } from "./components/make-deal";
 import { MakeOrder } from "./components/make-order";
+import { OrderNotifications } from "./components/OrderNotifications";
 import { Orders } from "./pages/orders";
 import { Products } from "./pages/products";
 import { Toaster } from "react-hot-toast";
-import { useEffect } from "react";
-
-const characters =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-function generateString(length) {
-  let result = " ";
-  const charactersLength = characters.length;
-  for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
-  }
-
-  return result;
-}
+import { generateString } from "./helpers/functions";
 
 function App() {
+  const [userId, setUserId] = useState(getUserIdFromLocalStorage());
   useEffect(() => {
-    if (!localStorage.getItem("user_id")) {
-      localStorage.setItem("user_id", generateString(10));
+    if (getUserIdFromLocalStorage()) {
+      return;
     }
+    const userId = generateString(10);
+    setUserIdInLocalStorage(userId);
+    setUserId(userId);
   }, []);
   return (
     <BrowserRouter>
@@ -42,6 +39,7 @@ function App() {
       />
       <AppNavBar />
       <Container className="mt-3">
+        <OrderNotifications userId={userId} />
         <Routes>
           <Route index path="/" element={<Products />} />
           <Route path="/products" element={<Products />} />

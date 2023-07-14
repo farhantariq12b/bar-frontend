@@ -15,19 +15,17 @@ api.interceptors.request.use(...authInterceptor);
 api.interceptors.response.use(
     (response) => response.data,
     (error) => {
-        if (error?.response?.status !== 422) {
-            toast.error(
-                error?.response?.data?.message ??
-                error?.response?.data?.error ??
-                "Internal server error, Try again later",
-                {
-                    style: {
-                        minWidth: 200,
-                    },
-                    id: "server_error",
-                }
-            );
-        }
+        toast.error(
+            error?.response?.data?.message ??
+            error?.response?.data?.error ??
+            "Internal server error, Try again later",
+            {
+                style: {
+                    minWidth: 200,
+                },
+                id: "server_error",
+            }
+        );
 
         return Promise.reject(error);
     }
