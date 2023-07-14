@@ -5,13 +5,14 @@ import {
   NavLink,
   Navbar,
   NavbarBrand,
+  NavbarText,
   NavbarToggler,
 } from "reactstrap";
 
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-function AppNavBar(args) {
+function AppNavBar({ userId, ...args }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -39,6 +40,7 @@ function AppNavBar(args) {
               </NavItem>
             </Link>
           </Nav>
+          <NavbarText>{userId}</NavbarText>
         </Collapse>
       </Navbar>
     </div>

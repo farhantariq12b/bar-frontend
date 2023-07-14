@@ -37,7 +37,7 @@ function App() {
           duration: 5000,
         }}
       />
-      <AppNavBar />
+      <AppNavBar userId={userId} />
       <Container className="mt-3">
         <OrderNotifications userId={userId} />
         <Routes>
